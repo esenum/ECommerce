@@ -1,0 +1,183 @@
+﻿@model IEnumerable<E_commerce_Site.Models.Product>
+
+@{
+	ViewData["Title"] = "Main Page";
+}
+
+
+<head>
+	<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+	<meta name="apple-mobile-web-app-title" content="CodePen">
+	<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+	<link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+</head>
+
+
+<body>
+
+
+	<div class="bd-masthead">
+		<div class="container">
+			<div class="row">
+
+				@await Component.InvokeAsync("CategoryList")
+
+
+				<div id="carouselExampleDark" class="carousel carousel-dark slide col-md-9" data-bs-ride="carousel">
+					<div class="carousel-indicators">
+						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+						<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+					</div>
+					<div class="carousel-inner">
+						<div class="carousel-item active mt-3" data-bs-interval="5000">
+							<a href="~/Customer/Home/Details/10">
+								<img src="~/images/product/5fedaaed-b758-499d-8d87-a06db3edc8a4.jpg" class="col-lg-12 col-md-12 col-sm-12" style="width:1000px;height:550px;" />
+							</a>
+							<div class="carousel-caption d-none d-md-block">
+								<h2 style="color:white"><b>POPULAR PRODUCTS</b></h2>
+							</div>
+						</div>
+						<div class="carousel-item mt-3" data-bs-interval="5000">
+							<a href="~/Customer/Home/Details/5">
+								<img src="~/images/product/187ccbcc-6c70-40de-b131-d110d06c29b8.jpg" class="col-lg-12 col-md-12 col-sm-12" style="width:1000px;height:550px;" />
+
+							</a>
+							<div class="carousel-caption d-none d-md-block">
+								<h2 style="color:white"><b>POPULAR PRODUCTS</b></h2>
+							</div>
+						</div>
+						<div class="carousel-item mt-3" data-bs-interval="5000">
+							<a href="~/Customer/Home/Details/7">
+								<img src="~/images/product/fdbf31ab-3470-4370-93d0-8da54175594b.jpg" class=" col-lg-12 col-md-12 col-sm-12" style="width:1000px;height:550px;" />
+							</a>
+							<div class="carousel-caption d-none d-md-block">
+								<b>
+									<a class="text-end text-light"> DEAL ENDS-IN </a>
+								</b>							
+								<p>
+									<a class="btn btn-sm btn-info float-center" href="#" id="demo"></a>
+								</p>
+							</div>
+						</div>
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="container">
+		<div class="row">
+			@foreach (var item in Model)
+			{
+				<div class="col-md-4 mt-2 pt-2">
+					<div class="card text-center">
+						<div class="bd-cardhead card-header">
+							@item.Title
+						</div>
+						<img src="@item.Image" class="card-img-top" alt="..." style="height:350px">
+						<div class="card-body" style="height:100px">
+							<p class="card-text">
+								@item.Description
+							</p>
+						</div>
+						<div class="card-footer">
+							<label style="font-size:20px;color:crimson">
+								<b>
+									@item.Price.ToString("0.00")$
+								</b>
+							</label>
+							<a asp-action="Details" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-outline-info" style="float:right">Detail</a>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+
+
+	<div id="back-top">
+		Back to top
+		<span class="rocket">🚀</span>
+	</div>
+
+
+
+	@*<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>*@
+	@*<script src='https://codepen.io/housamz/pen/rNLdGNQ.js'></script>*@
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+
+	<script>
+		// Set the date we're counting down to
+		var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+
+		// Update the count down every 1 second
+		var x = setInterval(function() {
+
+		  // Get today's date and time
+		  var now = new Date().getTime();
+
+		  // Find the distance between now and the count down date
+		  var distance = countDownDate - now;
+
+		  // Time calculations for days, hours, minutes and seconds
+		  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+		  // Output the result in an element with id="demo"
+		  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+		  + minutes + "m " + seconds + "s ";
+
+		  // If the count down is over, write some text
+		  if (distance < 0) {
+			clearInterval(x);
+			document.getElementById("demo").innerHTML = "EXPIRED";
+		  }
+		}, 1000);
+	</script>
+
+	<script id="rendered-js">
+		var btn = $("#back-top");
+
+		$(window).scroll(function () {
+		  $(this).scrollTop() > 1250 ? btn.fadeIn() : btn.fadeOut();
+		});
+
+		btn.click(function () {
+		  $("body,html").animate({
+			  scrollTop:0
+			}, 1000);
+		  $(".rocket").addClass("fly");
+
+		  setTimeout(function () {
+			$(".rocket").removeClass("fly");
+		  }, 1000);
+
+		  return false;
+		});
+
+
+	</script>
+
+
+
+</body>
+
+
+
+
+
+

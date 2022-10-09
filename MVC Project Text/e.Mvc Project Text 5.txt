@@ -1,0 +1,97 @@
+Admin ->Controllersağclick->add->Controller->Empty ->name: UserController
+->[Area("Admin")]
+public class UserController : Controller
+{
+->private readonly ApplicationDbContext _context;
+Public UserController->(ApplicationDbContext context)
+{
+_context = context;
+}
+public IActionResult Index()
+{
+var users = _context.ApplicationUsers.ToList();
+var role = _context.Roles.ToList();
+var userRol = _context.UserRoles.ToList();
+Foreach(var item in users)
+{
+var roleId = userRol.FirstOrDefault(i=>i.UserId==item.Id).RoleId;
+item.role = role.FirstorDefault(u=>u.Id==roleId).Name
+}
+return View(users)
+}	
+}
+-------------------------------------------------------------------------
+UserControlleer.cs to sağclick add view ->RazorView ->Index-Empty-usemainlayoutpage
+@model IEnumerable<ApplicationUser>
+<div ="class="row">
+<div class="col-md-6">
+<h2 class=text-primary>Kullanıcı Listesi<h2>
+</div>
+
+<div class="col-md-6">
+<p>
+<a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary form-control">İCON-Kullancı Ekle<a>
+<p>
+</div>
+Category Indexteki tabloyu copy past to User Index.cshtml ->adı-soya-Email-rol->Foreach edit sadece del kalsın
+</div>
+Catag. sectionı da al past
+layout-a git ve dropboxu asp-cont=User >Kullanıcılar<
+--------------------------------------------------------------------------
+go to category controller delete2fun copy -> to usercont.
+int? id => string id  ... m=>m.Id == id.ToString();
+category rebuild to user... Categories->applic.Users
+------------------------
+usercont.sağclicktoaddtorazorV.Add
+@model ApplicationUser
+categoryDelete go and copy paste to User>Delete.cshtml and edit
+---------------------------------------------------------------------------
+go product cont.and admin bottom[Authorize(Roles = Diger.Role_Admin)]
+go category cont. and admin bottom[Authorize(Roles = Diger.Role_Admin)] 
+go user cont. and admin bottom[Authorize(Roles = Diger.Role_Admin)]
+go hazirıdentitycookie->copyCode Startup->Configuration-->Services paste
+---------------------------------------------------------------------------
+go layout->
+@using->projectName.Models
+@if(User.IsInRole(Diger.Role_Admin)){
+dropdown paste
+}
+----------------------------------------------------------------------------
+register.cshtml and login.cshtml edit
+---------------------------------------
+Emailsağclick-add->EmailOptions //                                    sonradan devam
+-> prop->
+public string SenderSiteName{g;s;}
+go emailsender.cs-> public EmailOptions Options {g;s;}
+ctor(IOptions<EmailOptions>emailOptions..using){
+Options = emailOptions.Value;
+}
+yukarıya SendEmailAsync
+{
+var client = new SendGridClient(Options.EmailSendSiteName);
+var mesaj = new SendGridMessage(){
+From = new EmailAddress("berkaytlli3@gmail.com","Telli"),
+Subject = subject,
+PlainTextContext = htmlMessage,
+htmlContext = htmlMessage
+};
+mesaj.Addto(New EmailAddress(email));
+try{
+return client.SendEmailAsync(mesaj);
+}
+catch(Exception){
+throw;
+}
+return null;
+}
+go startup->Email Sender altına
+services.Configure<EmailOptions>(Configuration); -> go Register.cshtml.cs ->
+var code = await // geçerli hale getir
+
+
+
+
+
+
+
+

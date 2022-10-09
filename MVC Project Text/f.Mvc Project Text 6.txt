@@ -1,0 +1,105 @@
+Modelsağclicktoadd->ShoppingCart
+prop->
+[Key]Public Int Id {g;s;}
+Public str ApplicationUserId{g;s;}
+[foreignKey("ApplicationUserId")]Public ApplicationUser ApplicationUser {g;s;}
+Public int ProductId{g;s;}
+[foreignKey("ProductId")]public Product Product {get;set;}
+public int Count{g;s;}
+[NotMapped]public double Price {g;s;}
+class shoppingcart altına ctor -> Count=1;
+----------------------------------------------
+ModelsağclickAddClass->Name:OrderHeader
+Shoppingcart.csden ilk 4 satır  -id-AppUse.Id-Appuse.
+public DateTime OrderDate {g;s;}
+public double OrderTotal {g;s;}
+public string OrderStatus {g;s;}
+[Required]public string Name {g;s}
+[Required]public string Surname{g;s}
+[Required]public string PhoneNumber{g;s}
+[Required]public string Adres{g;s}
+[Required]public string Semt{g;s}
+[Required]public string Sehir{g;s}
+[Required]public string PostaKodu{g;s}
+----------------------------------------------
+ModelssağclickaddClass->name:OrderDetails
+[Key]public int Id {g;s;}
+[Required]public int OrderId {g;s;}
+[ForeignKey("OrderId")]public OrderHeader OrderHeader{g;s;}
+[Required]public int ProductId{g;s;}
+[ForeignKey("ProductId")]public Product Product{g;s;}
+public int Count {g;s;}
+public double Price {g;s;}
+-----------------------------------------------
+goto applicationDbContext
+public DbSet<ShoppingCart>ShoppingCart {g;s;}
+public DbSet<OrderHeader>OrderHeader {g;s;}
+public DbSet<OrderDetails>OrderDetails {g;s;}
+->go to packageManagerConsole
+add-migration CardAndOrder enter update-database
+-------------------------------------------------
+goHomeController->ıactionresult-detailsoluşumu
+public IactionResult Details(int id)
+{
+var product =_db.Products.Firstordefault(i=>i.Id==id);
+ShoppingCart cart = new ShoppingCart()
+{
+Product = products,
+ProductId = products.Id
+};
+return View(cart)
+}
+->>>
+->sağclickaddView ->Razor>Details->add
+@model.projectName.Models.ShoppingCart
+go Bootstrap->Commanents->Cart->Horizontal
+div container + -> form->input hidden ->asp-for="ProductId"
+go-to-category-delete->dl class row alalım ->paste CartBodyaltına
+stock -> @Model.Product.isStock
+...
+@m.p.Price.ToString("0.00")tl
+adet
+<input asp-for="Count" class="Form-control" ->3 boşsil
+en aşşa div ekle anasayfa and sepete ekle ve@if ürünTükendi
+anasayfa->asp-action=Index asp-cont=Home
+goHomeController copy details and paste altına
+üstüne
+[HttpPost]
+[ValidateAntiForgeryToken]
+[Authorize]
+public IactionResult Details(->ShoppingCart Scart)
+{
+scart.Id = 0;
+if(ModelState.IsValid)
+{
+var claimIdentity =(ClaimsIdentity.using).User.Identity;
+var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+Scart.ApplicationUserId= claim.Value;
+ShoppingCart cart = _db.ShoppingCarts.firstOrDefault(u=>u.ApplicationUserId==Scart.ApplicationUserId&&u.ProductId==Scart.ProductId);
+if(cart == null)
+{
+_db.ShoppingCarts.Add(Scart)
+}
+else
+{
+cart.count += Scart.Count;
+}
+_db.SaveChanges();
+return RedirectToAction(nameof(Index));
+}
+else
+{
+var product =_db.Products.Firstordefault(i=>i.Id==Scart.Id);
+ShoppingCart cart = new ShoppingCart()
+{
+Product = product,
+ProductId = product.Id
+};
+}
+
+return View(Scart)
+}
+
+
+
+

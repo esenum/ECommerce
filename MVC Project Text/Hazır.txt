@@ -1,0 +1,53 @@
+..............................................ImageRequest
+
+var files = HttpContext.Request.Form.Files;
+    if (files.Count>0)
+{
+string fileName = Guid.NewGuid().ToString();
+var uploads = Path.Combine(_he.WebRootPath, @"images\product");
+var ext = Path.GetExtension(files[0].FileName);
+if (product.Image != null)
+{
+var imagePath = Path.Combine(_he.WebRootPath, product.Image.TrimStart('\\'));
+if (System.IO.File.Exists(imagePath))
+{
+System.IO.File.Delete(imagePath);
+}
+}
+using (var filesStream = new FileStream(Path.Combine(uploads, fileName + ext), FileMode.Create))
+{
+files[0].CopyTo(filesStream);
+}
+product.Image = @"\images\product\" + fileName + ext;
+}
+
+...........................................................
+Identity/Cookie
+
+services.ConfigureApplicationCookie(options =>
+    {
+        options.LoginPath = $"/Identity/Account/Login";
+        options.LogoutPath = $"/Identity/Account/Logout";
+        options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+    });
+............................................................sesion
+public static void Set<T>(this ISession session, string key, T value)
+    {
+        session.SetString(key, JsonConvert.SerializeObject(value));
+    }
+
+    public static T? Get<T>(this ISession session, string key)
+    {
+        var value = session.GetString(key);
+        return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
+    }
+
+-------------------------------------------------------------- startup
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+--------------------------------------------------------------sta.app->
+app.UseSession();

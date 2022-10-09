@@ -1,0 +1,107 @@
+ModelssağclickaddClass->name:ApplicationUser
+ApplicationUser : IdentityUser
+{
+[Required]public string Name{g;s;}
+[Required]public string Surname{g;s;}
+public string Adres{g;s;}
+public string Sehir{g;s;}
+public string Semt{g;s;}
+public string PostaKodu{g;s;}
+[NotMapped]public string Role{g;s;} 
+}
+Go to applicationdbcontext
+public DbSet<ApplicationUser> ApplicationUser{g;s;}
+go to packagemanage add-migration addUser - update-database
+-----------------------------------------------------------
+ProjectnamesağclickAdd->New scaffoltedıtem->soldan Identity and overrideallfiles and shared/layout appdbcon.->add
+go applicationUser.cs copy prop and register.cshtml.cs Input en altına past->TelefonNo prop add delete[notMapped]
+go Register.cshtml edit
+-----------------------------------------------------------
+modelsağclickAdd-Class name:Diger -> add tost
+{
+public const string Role_Birey="Birey";
+public const string Role_Admin="Admin";
+public const string Role_User="User";
+}
+goto Register  ->OnPostAsync
+isvalid{
+hazırIdentityUser sil yerine
+var user = new ApplicationUser{
+UserName=Input.Email, virgü
+Email=Input.Email,
+Adres = Input.Adres,
+Sehir = Input.Sehir,
+Semt = Input.Semt,
+Name = Input.Name,
+Surname = Input.Surname
+PhoneNumber = Input.TelefonNo
+PostaKodu = Input.Postakodu
+Role = Input.Role
+};
+}
+en üste git -> private readonly _roleManager;
+private readonly ApplicationDbContext _db;
+Public RegisterModel->satıriçine , RoleManager<IdentityRole> roleManager ,
+ApplicationDbContext db) hemen alta _roleManager = roleManager and db = db;
+_logger.logInformation altına
+if(!await _roleManager.RoleExistsAsync(Diger.Role_Admin)){
+await _roleManager.CreateAsync(new IdentityRole(Diger.Role_Admin));
+}ve aynen diğerlerine uygula. altınada
+await _userManager.AddtoRoleAsync(user,Diger.Role_Admin);
+--------------------------------------------------------
+go Startup IConfiguraiton altındaki
+AddDefaultIdentity i AddIdentity yap<IdentityUser,IdentityRole>().adddeftokenproviders()
+--------------------------------------------------------
+projectnamesağclict to add newfolder name:Email ->EmailtosağclicktoAddClass name:EmailSender
+pub class EmailSender : IEmailSender .using sağ imlamentlamba->gostartup
+IConfiguration en alttaki servicein üstüne services.AddSingleton<IEmailSender,EmailSender>();usingle
+enalttakiservicesparantezsonu().AddRazorRuntimeComp();
+services.AddRazorPages();
+--------------------------------------------------------
+go to Register
+Role{g;s;} altına
+public IEnumerable<SelectListItem> RoleList{get;set;}
+OnGetAsync->returnurl altına
+Input = new InputModel(){
+RoleList =_roleManager.Roles.Where(i=>i.Name != Diger.Role_Birey)
+.Select(x=>x.Name)
+.Select(u=>new SelectListItem
+{
+Text = u,
+Value = u
+})
+};
+go Register @using projectname.Models
+şifretekrarDiv altına
+@if(User.IsInRole(Diger.Role_Admin))
+{
+<div class="form group">
+@html.DropDownListFor(m=>m.Input.Role,Model.Input.RoleList,"Rol Seç",new{@class="Form-control"})
+</div>
+}
+Go to Register.cshtml
+if(User.Role==null)
+{
+await _userManager.AddRoleAsync(user,Diger.Role_User);
+}
+else{
+ await _userManager.AddRoleAsync(user,user.Role);
+}
+varcode // yaptığımızkodun elseine
+if(user.Role==null){
+altındaki ikisatırı if içerisine paste
+}
+else
+{
+return RedirectToAction("Index","User",new{Area="Admin"});
+}
+ 
+ 
+
+
+
+
+
+
+
+

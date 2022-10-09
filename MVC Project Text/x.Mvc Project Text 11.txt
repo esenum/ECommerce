@@ -1,0 +1,127 @@
+AdminsağcliktoAddController->Empty->Name:OrderController
+[Area("Admin")]
+[Authorize]
+class Orde.Cont{
+private readonly ApplicationDbContext _db;
+public OrderController(ApplicationDbContext db)
+{
+_db = db;
+}
+public IActionResult Index()
+{
+var claimleri cart controllerdan alalım
+IEnumerable<OrderHeader.use> orderHeadersList;
+if(User.IsInRole(Diger.Role_Admin))
+{
+orderHeaderList = _ db.OrderHeaders.ToList();
+}
+else
+{
+orderHeadersList = _db.OrderHeaders.Where(i=>i.ApplicationUserId==claim.Value).Include(i=>i.ApplicationUser);
+}
+return View(orderHeaderList);
+}
+ 
+}
+-----------------------------------------
+sağclickAddViewRazor->
+@model IEnumerable<ProjectName.Models.OrderHeader>
+goB5 site Components->Button group-> Outlined styles copy paste ->Beklenen Sip.Onaylanan Sip.-Kargolanan Sip.-Tüm Sip.->active tüm
+div in classına pasteto "d-grid gap-2 d-md-flex justify-content-md-end"
+goto layout->AdminPaneline bir li daha ekleyelim ifindışına
+else if(User.Identity.IsAuthenticated)
+{
+<li>
+<a class="nav-link text-white" asp-area="Admin" asp-controller="Order" asp-action=Index>Siparişler<a>
+<li>
+}
+category ındex tableandSection copy to orderIndex
+düzenle add adı soyadı telefon durum-item.orderstatus
+<td>
+@if(User.IsInRole(Diger.Role_Admin))
+{
+<a asp-action="Details" asp-route-id="@item.Id" class="btn success">pencil>Düzenle<a>
+}
+else
+{
+<a asp-action="Details" asp-route-id="@item.Id" class="btn success">pencil>Detay<a>
+}
+<td>
+-------------------------------------------------------------ordercont.
+public IActionResult Beklenen()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            IEnumerable<OrderHeader> orderHeadersList;
+            if (User.IsInRole(Diger.Role_Admin))
+            {
+                orderHeadersList = _db.orderHeaders.Where(i=>i.OrderStatus == Diger.Durum_Beklemede);
+            }
+            else
+            {
+                orderHeadersList = _db.orderHeaders.Where(i => i.ApplicationUserId == claim.Value&& i.OrderStatus==Diger.Durum_Beklemede).Include(i => i.ApplicationUser);
+            }
+            return View(orderHeadersList);
+        }
+        public IActionResult Onaylanan()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (User.IsInRole(Diger.Role_Admin))
+            {
+                orderHeadersList = _db.orderHeaders.Where(i => i.OrderStatus == Diger.Durum_Onaylandi);
+            }
+            else
+            {
+                orderHeadersList = _db.orderHeaders.Where(i => i.ApplicationUserId == claim.Value && i.OrderStatus == Diger.Durum_Onaylandi).Include(i => i.ApplicationUser);
+            }
+            return View(orderHeadersList);
+        }
+        
+        public IActionResult Kargolanan()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            IEnumerable<OrderHeader> orderHeadersList;
+            if (User.IsInRole(Diger.Role_Admin))
+            {
+                orderHeadersList = _db.orderHeaders.Where(i => i.OrderStatus == Diger.Durum_Kargoda);
+            }
+            else
+            {
+                orderHeadersList = _db.orderHeaders.Where(i => i.ApplicationUserId == claim.Value && i.OrderStatus == Diger.Durum_Kargoda).Include(i => i.ApplicationUser);
+            }
+            return View(orderHeadersList);
+        
+---------------------------------------------------------------------------------------------------------
+ModelsağclickAddClass ->Name: OrderDetailsVM
+{
+public OrderHeader OrderHeader{get;set;}
+public IEnumerable<OrderDetails>OrderDetails{get,set;}
+
+}
+GO OrderCont. readonly altına
+[BindProperty]public OrderDetailsVM OrderVM {g;s;}
+ı actionresult oluştur->
+public IActionResult Details(int id)
+{
+OrderVM = new OrderDetailsVM
+{
+OrderHeader =_db.OrderHeaders.firstorDefault(i=>i.Id==id),
+OrderDetails = _db.OrderDetails.Where(x=>x.OrderId==id).Include(x=>x.Product)
+};
+return View(OrderVM);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

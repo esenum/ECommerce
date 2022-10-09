@@ -1,0 +1,76 @@
+ModelsağclickAddClass Name:Product->add
+[Key]Public int Id{g;s;} > usingkey
+[Required]public string Title{g;s;}
+[Required]public Description{g;s;}
+[Required]public double Price{g;s;}
+Public string Image{g,s}
+Public bool IsHome{g,s}
+Public bool IsStock{g,s}
+Public int CategoryId {g,s}
+[ForeignKey("CategoryId")]Public Category Category{g;s;}
+---------------------------------------
+go to data->Appcon.
+public DbSet<Product> Products{get;set;}
+goto package manager cons. -> add-migration AddProduct and update-database
+---------------------------------------
+Admin->ControllersSağClickAddController->Using EntityFramework
+Model class: Product->application db cont->shared/layout--Name ProductController-- add
+goto layout add to Navbar item ürünler
+Product>Index,edit,delete,create düzenleme ındex-> @if(item.ımage==null) boş image göster
+Create ımage ınput type=file// form enctype="Multipart/form-data"
+datatablesı product ındexte uygula
+---------------------------------------
+goto productController
+üste private readonly IWebHostEnvironment _he; add using
+public Product Controller(appdbcon. contect,YAZ IWebHostEnvironment he)
+{
+_he = he;
+}
+-----------------------------------------------------------
+ProductCont.
+public async Task<IActionResult>Create(silproductkalsın)   ||Image
+images folder add newfolder name:product
+if(ModelState.IsValid)
+{
+
+Go to Hazr.....
+
+_context.Add(Product)...
+...
+}
+altındaki ViewData["CategoryId"] = new... kısmını silelim
+----------------------------------------------------------
+Product->Create.cshtml->Div copy to Edit.cshtml
+form group üstüne-><input type=hidden asp-for="Id" >
+resim imptunu copy bi üstüne type= hidden
+----------------------------------------------------------
+productCont create yazdığımız hazrkodları copy to ->productCont Edit ilk if sildikten sonra isvalid{paste
+alt try catch sil
+yine alt viewdata[]=new... sil
+----------------------------------------------------------
+edit.cshtml git yan div oluştur product indexteki resim iflerini al
+paste to edit.cshtml yan div. -> item.Imageyi Model.Image yapalım
+System ıo eşletisi
+----------------------------------------------------------
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

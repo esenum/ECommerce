@@ -1,0 +1,24 @@
+NugetManager->İyzipay download
+Summary post metodunun foreach dışına
+var payment = PaymentProcess(model); ampul ekleyelim
+->
+private Payment PaymentProcess(ShoppingCartVM model) using payment
+{
+copyIyzıco
+üye girişi yap apikey ve Secretkey ayarlarını değiştir 
+En aşşağıda değişiklik 
+return Payment.Create(request,options);
+}
+---------------------------------------------------------------------
+go OrderHeader.cs     ->add->aşa
+[Required]public string CartName {g;s;}
+[Required]public string CartNumber{g;s;}
+[Required]public string ExpirationMonth{g;s;}
+[Required]public string ExpirationYear{g;s;}
+[Required]public string Cvc{g;s;}
+go packageManagerConsole
+->
+add-migration AddPayment  update-database
+
+
+

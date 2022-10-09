@@ -1,0 +1,51 @@
+modelsağclick-Add-class name: SessionExtensions
+public static class SessionExtensions
+{
+Hazıra git session al
+}
+->
+startpa sessionları entegre et
+->diger.cs git
+pub const string ssShoppingCart ="Shopping Cart Session"
+->go Homecontroller
+Details(Scart) saveChange altına->
+var count = _db.ShoppingCarts.Where(i=>i.Scart.ApplicationUserId).ToList().Count();
+httpContext.Session.SetInt32(Diger.ssShoppingCart,count);
+--------------------------------------------------------------------
+Home controller IA.R. Index
+aşağıdaki var claimsIndentity ve var claimi copy paste 2.satıra
+if(claim!=null){
+var count = _db.ShoppingCarts.Where(i=>i.applicationUserId==claim.Value).ToList().Count();
+httpContext.Session.SetInt32(Diger.ssShoppingCart,count); 
+}
+--------------------------------------------------------------------
+goto Login.cshtml.cs
+private readonly ApplicationDbContext _db; add use
+altındaki LoginModele ekle , Applica.DbCont. db)
+aşşağıda ilişkilendirme->
+_db = db;
+OnPostAsync if(result.succeeded){
+var user=_db.ApplicationUsers.FirstOrDefault(i=>i.Email==Input.Email);
+int count = db.ShoppingCarts.Where(i=>i.ApplicationUserId == userId).Count();
+HttpContext.Session.SetInt32(Diger.ssShoppingCart,count);
+}
+---------------------------------------------------------------------
+layouta sepetadd
+gotoLayout-> httpekleyelim
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+layout IsInRole(Diger.Role_Admin) süslü dışınagit
+@if(User.Identity.IsAuthenticated&& HttpContextAccessor.HttpContext.Session.GetInt32(Diger.ssShoppingCart) !=null)
+{
+<li style="color:white"><a asp-area="Customer" asp-cont.="Cart" asp-action=Index class="nav-link text-white">
+@{
+var count = HttpContextAccessor.HttpContext.Session.GetInt32(Diger.ssShoppingCart); -> ikon ekle
+}
+<i class=.ascsa.....<i>(@count)
+<a></li>
+}
+else{ 
+<li style="color:white"><a href="/Identity/Account/Login" class="nav-link text-white">
+<i class=.ascsa.....<i>(0)
+<a></li>
+}

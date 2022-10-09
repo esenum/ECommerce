@@ -1,0 +1,19 @@
+Go to HomeController
+Card
+private readonly ApplicationDbContext _db;        appdbcont.using
+public HomeController(ILogger<HomeController>logger,->ApplicationDbContext db yaz)
+{
+_db = db;
+}
+IActionResult Index(){
+yaz.var products = _db.Products.Where(i=>i.IsHome).toList();
+Return view(products);
+}
+----------------------------------------------------------------------------------
+Customer->Home-> Index.cshtml düzenle
+top-> @model IEnumerable<Projectname.Models.Product>
+copy to bootstrap card and edit and aşağıya Details oluştur
+<a asp-action="Details" asp-controller="Home" asp-route-id="item.Id">Detay<a>
+
+
+

@@ -1,0 +1,60 @@
+goCartController.
+Public IActionResult Summary()
+{
+IAction Index 5satır copy paste
+foreach(var item in ShoppingCartVM.ListCart)
+{
+item.price =item.Product.Price
+ShoppingCartVM.OrderHeader.OrderTotal+=(item.Count*item.product.Price);
+}
+return View(ShoppingCartVM)
+}
+->sağclicktoaddRazorVİew
+----------------------------------
+@model projectName.Models.ShoppingCartVM
+goSummary.cshtml->
+------------------------------------
+goCartCont->Summary altına
+[HttpPost][ValidateAntiForgeryToken]public IactionResult Summary(ShoppingCartVM model)
+{
+sistemde olan kullanıcıyı bulmakiçin claims satırlarını addd
+ShoppingCartVM.ListCard = _db.ShoppingCarts.Where(i=>i.ApplicationUserId==claim.Value).Include(i=>i.Product);
+}
+--------------------------------------------------------
+goto Diger.cs
+->public const string Durum_Onaylandi = "Onaylandı";
+public const string Durum_Beklemede = "Beklemede";
+public const string Durum_Kargoda = "Kargoya Verildi";
+------------------------------------------------------
+goCartController->YeniSummary bottom next
+ShoppingCardVM.OrderHeader.OrderStatus = Diger.DurumBeklemede;
+ShoppingCardVM.OrderHeader.ApplicationUserId = claim.Value;
+ShoppingCardVM.OrderHeader.OrderDate = DateTime.Now;
+_db.OrderHeaders.Add(ShoppingCartVM.OrderHeader)
+_db.SaveChanges();
+foreach(var item in ShoppingCartVM.ListCart)
+{
+item.Price = item.Product.Price;
+OrderDetails orderDetails = New OrderDetails()
+{
+ProductId=Item.ProductId,
+OrderId = ShoppingCartVM.OrderHeader.Id,
+Price= Item.Price,
+Count = item.Count
+};
+ShoppingCartVM.OrderHeader.OrderTotal+= (item.Count * item.Product.Price);
+model.OrderHeader.OrderTotal += item.Count * item.Product.Price;
+_db.OrderDetails.Add(orderDetails);
+}
+_db.ShoppingCarts.RemoveRange(ShoppingCartVM.ListCart);
+_db.SaveChanges();
+HttpContext.Session.SetInt32(Diger.ssShoppingCart,0)
+return RedirectToAction("SiparisTamam"); copy parantez içi
+-----------------------------------------------------
+public IactionResult SiparisTamam() addview->razor
+{
+
+}
+view e yaz en kısa sürede kargoya verilecektir...
+
+

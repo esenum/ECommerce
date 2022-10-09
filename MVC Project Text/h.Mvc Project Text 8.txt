@@ -1,0 +1,74 @@
+ModelsağclickaddClass Name:ShoppingCartVM
+ShoppingCa.VM{
+public IEnumerable<ShoppingCart>ListCart{g;s;}
+public OrderHeader OrderHeader{g;s;}
+}
+Custemer->ControllersağclickaddemptyController->Name:CartController
+[Area("Customer")]
+üstcontrolleriçi-> private readonly ApplicationDbContext _db;
+->[BindProperty]public ShoppingCartVM ShoppingCartVM{g;s;}
+private readonly UserManager<IdentityUser>_userManager;
+ctor(UserManager<IdentityUser> userManager,ApplicationDbContext db){
+_db = db;
+_userManager = userManager;
+}
+goHomeCont.Indexıcı->var=claimleri copy->pasteto Cartcont.-Index ->bottoms
+ShoppingCartVM = New ShoppingCartVM()
+{
+OrderHeader = new Models.OrderHeader(),
+ListCart= _db.ShoppingCarts.Where(i=i.ApplicationUserId==claim.Value).Include(i=>i.Product)
+};
+shoppingCartVM.OrderHeader.OrderTotal = 0;
+shoppingCartVM.OrderHeader.ApplicationUser = _db.ApplicationUsers.FirstorDefault(i=>i.Id==claim.Value);
+foreach(var item in ShoppingCartVM.ListCart)
+{
+ShoppingCartVM.OrderHeader.OrderTotal+=(item.count*item.product.Price);
+
+}
+return View(ShoppingCartVM)
+sağclickaddview-razor-uselayoutmain-add
+@model projectName.Models.ShoppingCartVM
+-----------------------------------------
+CartIndexgit
+-----------------------------------------
+cartcontrollerı düzenle
+public IActionResult Add(int cartId)
+        {
+            var cart = _db.ShoppingCarts.FirstOrDefault(i => i.Id == cartId);
+            cart.Count += 1;
+            _db.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Decrease(int cartId)
+        {
+            var cart = _db.ShoppingCarts.FirstOrDefault(i => i.Id == cartId);
+            if (cart.Count == 1)
+            {
+                var count = _db.ShoppingCarts.Where(u => u.ApplicationUserId == cart.ApplicationUserId).ToList().Count();
+                _db.ShoppingCarts.Remove(cart);
+                _db.SaveChanges();
+                HttpContext.Session.SetInt32(Diger.ssShoppingCart, count - 1);
+            }
+            else
+            {
+                cart.Count -= 1;
+                _db.SaveChanges();
+            }
+            
+
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Remove(int cartId)
+        {
+            var cart = _db.ShoppingCarts.FirstOrDefault(i => i.Id == cartId);
+            
+                var count = _db.ShoppingCarts.Where(u => u.ApplicationUserId == cart.ApplicationUserId).ToList().Count();
+                _db.ShoppingCarts.Remove(cart);
+                _db.SaveChanges();
+                HttpContext.Session.SetInt32(Diger.ssShoppingCart, count - 1);
+           
+            return RedirectToAction(nameof(Index));
+        }
+
+

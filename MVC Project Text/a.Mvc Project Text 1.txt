@@ -1,0 +1,69 @@
+1.
+Create mvc netcore M.V.C
+Indvidual Accounts
+Enable Razor Runtime
+-----------
+AreasağclickaddArea-mvcarea-create Customer-> data-model delete
+HomeController.cs NameSpace rename ProjectName.Areas.Customer.
+HomeController topside|>[Area"Customer"]
+Click to Customer>Views>_ViewStart || Identity pages _viewS.içindekileri copy to Cus.Vv
+----------------------------------
+AreasağclickaddArea-create Admin-> data-model delete
+Customer View > _ViewImports-and_viewStarst copy to Admin Views
+Identity altındaki Controller delete
+----------------------------------
+Go to appsettings.json open sqlserver and copy to Servername
+def.con.:"Server="Server Name;Database =ProjectName;Trust..."
+----------------------------------
+Data->Migrations Delete
+Tools click->NuGet->Package Manager cliked
+add-migration AddDefault and update-database
+----------------------------------
+Model sağclick add to class =>Nme:Category->prop add
+[Key]pub int Id{g,s} ctrl . using
+[Required]pub string Name{g,s}// na null
+----------------------------------
+go to click ApplicationDbContext
+{
+}
+public DbSet<Category>Categories {g;s;}  |ctrl.=> Category|
+----------------------------------
+Open Package Manager Cons
+add-migration AddCategory, and update-database
+----------------------------------
+Areas->Admin->Controllers sağclick addcontr-using entityFrame
+seç model class->Category d.c.c->appdbcont -> ...shared/layout-> Name-CategoryController-add
+----------------------------------
+b5 Copy to anonymous script layout alt paste
+navbar  dropdownmenu copy to layout privacy dropdown menu <a>asp-area="Admin" asp-cont="Category" asp-action="Index"</a>
+----------------------------------
+go to categoryIndex düzenleme
+<div class=container> cut p and table create rename->Kategori ekle
+table class = table table-striped table-bordered
+<th>Kategori Adı<th>  a ları düzenle
+delete details
+<div>
+----------------------------------
+go to datatables.com gerekli comp layaouta kur
+kullanalıcak sayfaya CategoryIndex > altına
+@section Scripts{
+<scripts type="text/javascript">
+paste
+<scripts>
+}table a id ver bağlantı kur id="myTable"
+---------------------------------
+Category Create-Delete-Edit Düzenle
+
+
+
+
+
+
+
+
+
+
+
+
+
+

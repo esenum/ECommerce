@@ -1,0 +1,205 @@
+asp.net (core5 ).. program.cs---startup.cs Can Run @ the same time. (e-commerce)
+ 
+
+Equipments:
+Bootstrap: (bootswatch,w3schools,getbootstrap)
+(Dialogs, Accordions, Cards, List groups, Progress, Indicators(Alerts), Breadcrumbs, Forms, Tables, Navbars, Buttons).....(Exercised:3,4,6 (?) ,8,9,10,11)..dialog&accordion&indi&breadcrumb
+Datatables(jquery-pagination-sort by default datas)
+Toastr (css-js....given message)
+typeahead.js (ajax code rel w. local and DBset) ... (For search button)
+bootbox.js (A simple alert dialog with a single button. Pressing the ESC key or clicking the close button dismisses the dialog.The other features Confirm&Propmt&Custom)
+( datepicker/jqueryUI) change with feature bootboxjs of This is a PROMPT with a date input!)
+
+
+Completed:
+image,categories,product,appUser,a little front................................(%20)
+DESKTOP-0JJAPD2
+
+
+--------------------------------BACK 2FA CODE-----------------------------------------
+
+EmailService,,,,IdentityConfig.....EmailService
+
+ public class EmailService : IIdentityMessageService
+    {
+        public Task SendAsync(IdentityMessage message)
+        {
+            // Plug in your email service here to send an email.
+            return Task.FromResult(0);
+        }
+    }
+...
+ manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
+            {
+                Subject = "Security Code",
+                BodyFormat = "Your security code is {0}"
+            });
+            manager.EmailService = new EmailService();
+...
+return manager;
+
+--------------------------------BACK-----------------------------------------
+
+--------------------------------BACK-----------------------------------------
+
+
+
+
+
+--------------------------------BACK-----------------------------------------
+
+--------------------------------Mail &Password-----------------------------------------
+
+Admin:
+
+Mail:berkaytlli3@gmail.com
+Şifre:bERKAY37.
+
+User:
+
+Mail: bekocan23 @gmail.com
+Şifre: Berkay37.
+
+iyzico:
+berkaytlli3@gmail.com
+373837
+
+iyzico2:
+hbtelli7@gmail.com
+373839
+
+iyzico3:
+uesen94@gmail.com
+373839
+
+
+
+		---Info---
+<div class="d-lg-none">hide on lg and wider screens</div>
+<div class="d-none d-lg-block">hide on screens smaller than lg</div>
+-------------------------------------------------------------------------------------
+		---For Rocket, Given Message---
+
+console.clear();
+console.log(`%c
+
+        ┏┓
+        ┃┃
+        ┃┗━┳━━┳┓┏┳━━┳━━┳┓┏┳━━━┓
+        ┃┏┓┃┏┓┃┃┃┃━━┫┏┓┃┗┛┣━━┃┃
+        ┃┃┃┃┗┛┃┗┛┣━━┃┏┓┃┃┃┃┃━━┫
+        ┗┛┗┻━━┻━━┻━━┻┛┗┻┻┻┻━━━┛
+      
+    `, css);
+
+message @Console
+
+--------------------------------FRONT&BACK-----------------------------------------
+
+
+© 2022 - E_commerce_Site - Privacy (?)..(for berkay VS code.)
+
+		
+
+--------------------------------FRONT-----------------------------------------
+
+---For User Login:
+		Name&Username
+
+ <div class="form-group">
+  <label class="form-label mt-4">Floating labels</label>
+  <div class="form-floating mb-3">
+    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+    <label for="floatingInput">Email address</label>
+  </div>
+  <div class="form-floating">
+    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+    <label for="floatingPassword">Password</label>
+  </div>
+</div>
+
+
+
+---For User Details:(Code @ CodeOpen)
+<form>
+  <fieldset>
+    <legend>User Details</legend>
+    <div class="form-group">
+      <label for="exampleCity" class="form-label mt-4">City</label>
+      <select class="form-select" id="exampleCity">
+        <option>Istanbul</option>
+        <option>Ankara</option>
+        <option>Izmir</option>
+        <option>Bursa</option>
+        <option>Antalya</option>
+      </select>
+    </div>
+  <div class="form-group">
+      <label for="exampleDistrict" class="form-label mt-4">District</label>
+      <select class="form-select" id="exampleDistrict">
+        <option>Istanbul-1</option>
+        <option>Istanbul-2</option>
+        <option>Istanbul-3</option>
+        <option>Ankara-1</option>
+        <option>Ankara-2</option>
+        <option>Ankara-3</option>
+        <option>Izmir-1</option>
+        <option>Izmir-2</option>
+        <option>Bursa-1</option>
+        <option>Bursa-2</option>
+        <option>Antalya-1</option>
+        <option>Antalya-2</option>
+      </select>
+    </div>
+  
+   <button type="submit" class="mt-3 btn btn-primary">Submit</button>
+    </fieldset>    
+</form>
+
+
+--------------------------------FRONT-----------------------------------------
+Home/Details.cshtml.....image style:height:500px..........because of arranging the  small devices.
+
+----------------------------------------------------------------------------------
+
+			Lastly about Project
+
+		Ajax for search & (City &District)...
+		@Login Page: iyzico mail-password yukarda........Name&Username
+		Additional Js features. ( can you add additional func. to rocket ) .....(filter-sepet işlemleri-admin-onay)
+		(cookies - (siteyi-glympse) - security(authorization and authantication)).
+		toggle bar like ( https://www.analyticsinsight.net/shop/#)
+
+		Error Messages for Turkish at summary for 4 form areas..
+		sol1:) //[Validation(Adres, ErrorMessage = "The new password and confirmation password do not match.",false)] (error)
+		sol2:) change variable @ the model and update database
+
+		hello user @ navbar 
+
+
+		-last edit
+		layout search col-md-lg silinecek adminde kayma var.
+		
+		-turkish json scripti al berkaydan.
+		4 shipped,order,confirmed,all datatables turkish onaylanan kaldı.
+
+		Delete/List of Customer.......HTTPNOT????
+
+		Small Device:I-Phone 12 Pro
+		Mid(Tablet) Device:I-Pad Mini
+		Large(Desktop) Device: 1200px
+		X-large Device: 1400px
+
+
+		Adding feature: Disable confirmed function to register?????	
+		Ajax code will be added(local data set)
+		Form Details'e options (city & district)
+		Üyeliksiz sepet girişi eklenecek!
+		
+
+		
+
+
+
+
+

@@ -1,0 +1,106 @@
+projectName->sağclicktoaddnewFolderName:ViewCompents
+ViewComponentsSğclicktoAddClass->Name:CategoryList
+
+public class CategoryList: ViewComponents.using
+{
+private readonly ApplicationDbContext _db;
+ctor(ApplicationDbContext db)
+{
+_db = db;
+}
+public IViewComponentsResult Invoke()
+{
+var category = _db.Categories.ToList();
+return View(category); 
+}
+}
+-----------------------------------
+Views ->Home sağclicktoAddNewFolder Name Componenets
+Componentssağ clickaddNewFolder Name:CategoryList
+CategoryList sağclickAddView Name:Default ->>Createapartialview
+@model IEnumerable<ShopSiteApp.Models.Category>
+<div class="col-md-3">
+    <div class="card">
+        <div class="list-group">
+            <a asp-action="Index" asp-controller="Home" class="list-group-item list-group-item-action @(ViewBag.KategoriId==null?"active":"")" aria-current="true">
+                Tüm Ürünler
+            </a>
+            @foreach (var item in Model)
+            {
+                <a asp-action="CategoryDetails" class="list-group-item list-group-item-action @(ViewBag.KategoriId?.ToString()==item.Id.ToString()?"active":"")" asp-route-id="@item.Id">@item.Name</a>
+            }
+        </div>
+
+    </div>
+</div>
+
+------------------------------------
+go homeController
+public IActionResult CategoryDetails(int? id)
+{
+var product = _db.Products.Where(i=>i.CategoryId == id).ToList();
+ViewBag.KategoriId = id;
+return View(product);
+}
+->sağclicktoAddView->Razor-partialkaldır
+<div class="container">
+    <div class="row">
+        @await Component.InvokeAsync("CategoryList")
+        @if (Model.Count()>0)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            @item.Title
+                        </div>
+                        <img src="@item.Image" class="card-img-top" alt="..." style="height:200px">
+                        <div class="card-body" style="height:100px">
+                            <p class="card-text">@item.Description</p>
+                        </div>
+                        <div class="card-footer">
+                            <label style="font-size:20px;color:crimson"><b>@item.Price.ToString("0.00")₺</b></label>
+                            <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-outline-info" style="float:right">Satın Al</a>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+
+            }
+            else
+            {
+                <div class="alert alert-warning text-center">
+                    Herhangi bir ürün şuan için bulunmamaktadır...
+                </div>
+            }
+
+
+    </div>
+</div>
+--------------------------------------------------------------------------------
+Layouta gidelim
+<form class="form-inline" action="/Customer/Home/Search" method="post" style="margin-right:0.5rem">
+                            <input name="q" type="text" class="form-control mr-2" placeholder="Arama"/>
+                            <button class="btn btn-outline-info mr-2" type="submit"><i class="bi bi-search"></i>Ara</button>
+                        </form>
+HomeControllercs.git
+public IActionResult Search(string q)
+        {
+            if (!string.IsNullOrEmpty(q))
+            {
+                var ara = _db.Products.Where(i => i.Title.Contains(q) || i.Description.Contains(q));
+                return View(ara);
+            }
+            return View();
+        }
+-----------------add view
+@model IEnumerable<projectname.Models.Product>
+CategoryDetails conteinew Divini olduğu gibi yapıştır
+
+
+
+
